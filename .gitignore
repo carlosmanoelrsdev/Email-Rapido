@@ -1,0 +1,120 @@
+# ================================
+# Ambiente Python
+# ================================
+.venv/
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ================================
+# Variáveis de Ambiente
+# ================================
+.env
+.env.local
+.env.*.local
+.env.prod
+
+# ================================
+# IDE e Editor
+# ================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+*.code-workspace
+
+# ================================
+# Arquivos Gerados e Backups
+# ================================
+email.txt
+
+# ================================
+# Sistema Operacional
+# ================================
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ================================
+# Arquivos de Backup e Temporários
+# ================================
+*.bak
+*.tmp
+*.temp
+*.log
+*.orig
+*~
+
+# ================================
+# Cache e Compilação Python
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ================================
+# Arquivos Específicos do Projeto
+# ================================
+email.txt
+backup_emails/
+*.txt.bak
+.log/
+debug_logs/
+
+# ================================
+# Arquivos de Segurança (credenciais)
+# ================================
+*.key
+*.pem
+*.crt
+secrets.json
+credentials.json
+
+# ================================
+# Dependências Específicas
+# ================================
+/node_modules/
+package-lock.json
+yarn.lock
+
+# ================================
+# Arquivos do Sistema
+# ================================
+.directory
+.env.bak

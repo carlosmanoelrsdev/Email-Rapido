@@ -1,0 +1,15 @@
+# ================================
+# Email Rápido - Dependências
+# ================================
+
+# IMAP Tools - Manipulação de emails via IMAP
+imap_tools==1.6.0
+
+# Python-dotenv - Carregamento de variáveis de ambiente
+python-dotenv==1.0.0
+
+# PyAutoGUI - Automação de interface do sistema
+pyautogui==0.9.53
+
+# PyPerclip - Manipulação da área de transferência
+pyperclip==1.8.2
