@@ -12,11 +12,11 @@ O **Email Rápido** é um projeto pessoal para organizar e automatizar a leitura
 
 Entregar uma aplicação funcional e clara que ajude na leitura dos emails diários com as seguintes funcionalidades:
 
-- ✅ Conexão com Gmail automática via IMAP
-- ✅ Salvamento em formato `.txt` para backup
-- ✅ Automação WhatsApp sem risco de bloqueio
-- ✅ Extração de conteúdo relevante dos emails
-- ✅ Formatação clara e organizada
+- Conexão com Gmail automática via IMAP
+- Salvamento em formato `.txt` para backup
+- Automação WhatsApp sem risco de bloqueio
+- Extração de conteúdo relevante dos emails
+- Formatação clara e organizada
 
 ---
 
@@ -105,7 +105,7 @@ NUMERO_TELEFONE=Seu Número
 
 ---
 
-## 🔧 Como Executar
+## Como Executar
 
 ```bash
 python app.py
