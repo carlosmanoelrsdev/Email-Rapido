@@ -23,18 +23,41 @@ Entregar uma aplicação funcional e clara que ajude na leitura dos emails diár
 ## Estrutura do Projeto
 
 ```
-TesteIMAP/
-├── App.py                 # Ponto de entrada da aplicação
-├── config.py              # Carregamento de variáveis de ambiente
-├── ConfigEmails.py        # Lógica principal de conexão e leitura de emails
-├── EnvioWhatsapp.py       # Automação de envio via WhatsApp Web
-├── email.txt              # Arquivo de backup com emails (gerado)
-├── .env                   # Variáveis de ambiente (não incluído no git)
-├── .env.example           # Exemplo de variáveis de ambiente
-├── .gitignore             # Arquivos ignorados pelo git
-├── requirements.txt       # Dependências do projeto
-└── README.md              # Este arquivo
+Email-Rápido/
+├── App.py                    # Ponto de entrada da aplicação
+├── config.py                 # Carregamento de variáveis de ambiente
+├── configJSON.py             # Funções de leitura do JSON de emails
+├── ConfigEmails.py           # Lógica principal de conexão e leitura de emails
+├── EnvioWhatsapp.py          # Automação de envio via WhatsApp Web
+├── emails.json               # Múltiplas contas de email (não incluído no git)
+├── emailsExample.json        # Exemplo de configuração de emails
+├── email.txt                 # Arquivo de backup com emails (não incluído no git)
+├── .env                      # Variáveis de ambiente (não incluído no git) Descontinuado
+├── .env.example              # Exemplo de variáveis de ambiente. Descontinuado
+├── .gitignore                # Arquivos ignorados pelo git
+├── requirements.txt          # Dependências do projeto
+└── README.md                 # Este arquivo
 ```
+
+---
+
+## Alterações Recentes
+
+### Versão 2.0 - Suporte a Múltiplas Contas
+
+✅ **Adicionado:**
+- Suporte para múltiplas contas de Gmail no `emails.json`
+- Menu de seleção de conta ao iniciar a aplicação
+- Melhor organização das credenciais
+- Correção do bug de comparação de tipos na validação de entrada
+
+✅ **Melhorado:**
+- UX: Interface mais intuitiva para escolher a conta
+- Código mais robusto e tratamento de erros
+
+⚠️ **Descontinuado:**
+- Configuração via `.env` - Use `emails.json` em seu lugar
+- `.env.example` foi movido para `emailsExample.json`
 
 ---
 
@@ -53,7 +76,7 @@ TesteIMAP/
 #### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/carlosmanoelrsdev/Email-R-pido---Gerenciador-de-Emails-no-WhatsApp.git
+git clone https://github.com/carlosmanoelrsdev/Email-Rapido.git
 ```
 
 #### 2. Crie e ative o ambiente virtual
@@ -75,28 +98,54 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### 4. Configure as variáveis de ambiente
+#### 4. Configure Múltiplas Contas de Email (NOVO)
 
-Copie o arquivo `.env.example` para `.env`:
+A partir desta atualização, você pode configurar **múltiplas contas de Gmail** usando o arquivo `emails.json`:
+
+**Copie `emailsExample.json` para `emails.json`:**
 
 ```bash
 # Windows
-copy .env.example .env
+copy emailsExample.json emails.json
 
 # Linux/Mac
-cp .env.example .env
+cp emailsExample.json emails.json
 ```
 
-Abra o `.env` e configure com suas credenciais:
+**Estrutura do `emails.json`:**
 
-```env
-MAIL_SERVIDOR_GMAIL=imap.gmail.com
-MAIL_USER_GMAIL=seu.email@gmail.com
-MAIL_SENHA_GMAIL=sua_senha_de_app_do_gmail
-NUMERO_TELEFONE=Seu Número
+```json
+{
+    "emails": [
+        {
+            "ID": 0,
+            "servidor": "imap.gmail.com",
+            "email": "primeira.conta@gmail.com",
+            "senhaAPP": "sua senha de app aqui"
+        },
+        {
+            "ID": 1,
+            "servidor": "imap.gmail.com",
+            "email": "segunda.conta@gmail.com",
+            "senhaAPP": "sua senha de app aqui"
+        }
+    ]
+}
 ```
 
-#### 5. Obtenha a Senha de Aplicativo Gmail
+**Como usar:**
+
+1. Execute o programa: `python App.py`
+2. O programa mostrará todas as contas configuradas
+3. Digite o **ID** da conta que deseja usar
+4. Os emails serão capturados e salvos
+
+**⚠️ IMPORTANTE - Segurança:**
+- O arquivo `emails.json` está no `.gitignore` e **NÃO será commitado**
+- Nunca compartilhe ou publique seu arquivo `emails.json` com credenciais reais
+- Use apenas **Senhas de Aplicativo** do Gmail (não a senha principal)
+
+#### 6. Obtenha a Senha de Aplicativo Gmail
 
 1. Acesse [Google Account Security](https://myaccount.google.com/security)
 2. Ative autenticação de dois fatores
@@ -117,7 +166,7 @@ Após executar, o programa irá:
 3. Salvar em `email.txt`
 4. Abrir WhatsApp Web automaticamente
 5. Enviar os emails formatados via WhatsApp
-
+5
 ---
 
 ## Fluxo de Uso
@@ -149,7 +198,7 @@ Após executar, o programa irá:
 | Arquivo | Responsabilidade |
 |---------|-----------------|
 | **App.py** | Ponto de entrada, inicializa a aplicação |
-| **config.py** | Carrega variáveis de ambiente do `.env` |
+| **config.py** | Carregamento de credenciais (Descontinuado) |
 | **ConfigEmails.py** | Lógica IMAP, busca e processamento de emails |
 | **EnvioWhatsapp.py** | Automação via PyAutoGUI e WhatsApp Web |
 
@@ -181,20 +230,21 @@ Modifique a lógica de busca em `ConfigEmails.py` para filtrar por remetente, as
 | Erro de autenticação Gmail | Verifique se gerou Senha de Aplicativo e não usou senha comum |
 | PyAutoGUI não funciona | Ensure a janela está ativa e com foco |
 | WhatsApp não abre | Verifique se Edge está instalado ou altere para Chrome |
-| Arquivo `.env` não encontrado | Renomeie `.env.example` para `.env` |
+| Arquivo `emails.json` não encontrado | Copie `emailsExample.json` para `emails.json` e configure suas contas |
 
 
 ---
 
 ## Melhorias Futuras
 
-- Navegar entre múltiplos emails
+- ✅ ~~Navegar entre múltiplos emails~~ (Adicionado na v2.0)
 - Suporte a outros provedores (Outlook, Yahoo, etc.)
-- Interface Intuítiva
+- Interface Gráfica Intuitiva
 - Integração com aplicativos mobile
 - Agendamento automático (task scheduler)
-- Criptografia de credenciais
+- Criptografia de credenciais locais
 - Dashboard de estatísticas de emails
+- API REST para integração externa
 
 ---
 
@@ -202,9 +252,10 @@ Modifique a lógica de busca em `ConfigEmails.py` para filtrar por remetente, as
 
 **Carlos Manoel**
 
--  Email Principal: carlosmanoelrscontato@gmail.com  
--  Email Secundário: carlosmanoeldev@outlook.com
--  GitHub: [carlosmanoelrsdev](https://github.com/carlosmanoelrsdev)
+- Email Principal: carlosmanoelrscontato@gmail.com
+- Email Secundário: carlosmanoeldev@outlook.com
+- GitHub: [carlosmanoelrsdev](https://github.com/carlosmanoelrsdev)
+
 
 
 

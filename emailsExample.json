@@ -1,0 +1,8 @@
+{
+    "emails":[
+        {"ID": 0,
+        "servidor": "imap.gmail.com",
+        "email": "seuemail@gmail.com",
+        "senhaAPP": "Sua senha"}
+    ]
+}

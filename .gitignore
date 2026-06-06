@@ -25,12 +25,14 @@ share/python-wheels/
 MANIFEST
 
 # ================================
-# Variáveis de Ambiente
+# Variáveis de Ambiente e Credenciais
 # ================================
 .env
 .env.local
 .env.*.local
 .env.prod
+emails.json
+email.txt
 
 # ================================
 # IDE e Editor
@@ -118,3 +120,6 @@ yarn.lock
 # ================================
 .directory
 .env.bak
+
+# Json para salvamento de Contas
+emails.json

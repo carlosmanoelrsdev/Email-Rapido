@@ -1,6 +1,7 @@
 from imap_tools import AND, MailBox
 from EnvioWhatsapp import EntrarWhatsapp, FormatarEmailsParaWhatsapp
-from config import PegarGmail
+from config import PegarGmailJSON
+from configJSON import LerJson, MostrarEmails, QuantidadeEmails
 import datetime
 
 emails_do_dia = []
@@ -9,6 +10,10 @@ def SalvarData():
     with open("email.txt", "a", encoding="utf-8") as arquivo:
         arquivo.write("Emails Dia: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M") + "\n\n")
 
+def PegarEmailMensagem(informacao_email):
+    with open("email.txt", "a", encoding="utf-8") as arquivo:
+        arquivo.write("Email: " + informacao_email + "\n")
+
 def FinalizarEmail():
     with open("email.txt", "a", encoding="utf-8") as arquivo:
         arquivo.write("Final dos emails\n")
@@ -16,6 +21,7 @@ def FinalizarEmail():
 
 def SalvarMemoriaTemporario(mensagem):
     email_dict = {
+        "emailRecebedor": mensagem.to[0],
         "remetente": mensagem.from_,
         "assunto": mensagem.subject,
         "data": mensagem.date.strftime('%d/%m/%Y %H:%M'),
@@ -45,6 +51,7 @@ def ConectarEmail(MAIL_SERVIDOR, MAIL_USER, MAIL_SENHA):
     global emails_do_dia
     emails_do_dia.clear()
 
+    PegarEmailMensagem(MAIL_USER)
     SalvarData()
 
     with MailBox(MAIL_SERVIDOR).login(MAIL_USER, MAIL_SENHA) as mb:
@@ -74,11 +81,33 @@ def ConectarEmail(MAIL_SERVIDOR, MAIL_USER, MAIL_SENHA):
     return emails_do_dia
 
 def Main():
-    print("Contas Localizadas: Gmail")
-    print("Gmail: " + PegarGmail()[1])
+    print("Contas Localizadas:")
+
+    MostrarEmails()
+
+    while True:
+        try:
+            entrada = input("\nDigite o número da conta que deseja usar. [00] Para sair\n"
+            "Sua Escolha: ")
+
+            if entrada == "00":
+                print("Encerrando o programa.")
+                return
+
+            conta_escolhida = int(entrada)
+
+            if LerJson(conta_escolhida) == "ID não encontrado":
+                print("ID não encontrado. Por favor, tente novamente.")
+            else:
+                break
+        except ValueError:
+            print("Entrada inválida. Por favor, Digite um número válido.")
+
+    print(f"Conta escolhida: {PegarGmailJSON(conta_escolhida)[1]}")
+    
     print("Conectando ao Gmail...")
     try:
-        MAIL_SERVIDOR, MAIL_USER, MAIL_SENHA = PegarGmail()
+        MAIL_SERVIDOR, MAIL_USER, MAIL_SENHA = PegarGmailJSON(conta_escolhida)
         emails_capturados = ConectarEmail(MAIL_SERVIDOR, MAIL_USER, MAIL_SENHA)
         print(f"\n# TOTAL: {len(emails_capturados)} emails prontos para enviar ao WhatsApp")
 

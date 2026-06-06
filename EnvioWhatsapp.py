@@ -4,10 +4,12 @@ from config import PegarNumero
 
 def FormatarEmailsParaWhatsapp(emails_array):
 
-    mensagem_formatada = "Emails do dia:\n\n"
+    mensagem_formatada = f"Emails do dia:\n\n"
+    if not emails_array:
+        return "Nenhum email encontrado para hoje."
     
     for idx, email in enumerate(emails_array, 1):
-        # ADICIONAR informacoes do email com formatacao
+        mensagem_formatada += f"Email: {email['emailRecebedor']}\n\n"
         mensagem_formatada += f"{idx}. De: {email['remetente']}\n\n"
         mensagem_formatada += f"   Assunto: {email['assunto']}\n\n"
         mensagem_formatada += f"   Data: {email['data']}\n\n"
